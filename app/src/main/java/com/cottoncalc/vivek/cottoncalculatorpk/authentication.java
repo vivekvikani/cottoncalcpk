@@ -6,9 +6,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -22,26 +19,40 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.parse.ParseException;
+import com.cottoncalc.vivek.cottoncalculatorpk.htmlparse.AsyncTaskCompleteListener;
+import com.cottoncalc.vivek.cottoncalculatorpk.htmlparse.HttpRequester;
+import com.cottoncalc.vivek.cottoncalculatorpk.htmlparse.ParseContent;
+import com.cottoncalc.vivek.cottoncalculatorpk.utils.AndyConstants;
+import com.cottoncalc.vivek.cottoncalculatorpk.utils.AndyUtils;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+
 
 /**
- * Created by Hitu on 17/07/2015.
+ * Created by Vivek on 17/07/2015.
  */
-public class authentication extends ActionBarActivity implements View.OnClickListener{
+
+public class authentication extends ActionBarActivity implements View.OnClickListener, AsyncTaskCompleteListener{
     public String IMEI;
     public String VersionNumber;
     public String operatorName;
     public String simID;
-    int daysLeft = 0;
-    private String locationString;
-    private LocationManager locationManager;
-    private LocationListener locationListener;
-    boolean network_enabled = false;
-
+    private ParseContent parseContent;
+    private ArrayList<HashMap<String,String>> alldetails;
+    int daysLeft = 3;
+    Button finalEnter;
+    ProgressDialog progress;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        progress = new ProgressDialog(this);
+        progress.setTitle("Preparing App");
+        progress.setMessage("This may take a few seconds...");
+        progress.setCancelable(false);
+        progress.show();
 
         TelephonyManager telephonyManager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
         operatorName = telephonyManager.getNetworkOperatorName();
@@ -56,8 +67,12 @@ public class authentication extends ActionBarActivity implements View.OnClickLis
         EditText name = (EditText) findViewById(R.id.name);
         name.requestFocus();
 
-        Button finalEnter = (Button) findViewById(R.id.finalEnter);
+        finalEnter = (Button) findViewById(R.id.finalEnter);
         finalEnter.setOnClickListener(this);
+
+        parseContent = new ParseContent(this);
+
+        checkIMEI();
     }
 
     @Override
@@ -66,7 +81,7 @@ public class authentication extends ActionBarActivity implements View.OnClickLis
         switch (view.getId()) {
 
             case R.id.finalEnter:
-
+                finalEnter.setEnabled(false);
                 EditText name = (EditText) findViewById(R.id.name);
                 EditText number = (EditText) findViewById(R.id.number);
                 int numberLength = number.getText().length();
@@ -75,163 +90,152 @@ public class authentication extends ActionBarActivity implements View.OnClickLis
                 if(nameS.equals("")  || nameS.equals(null))
                 {
                     Toast.makeText(getApplicationContext(), "Enter a Name", Toast.LENGTH_LONG).show();
-
+                    finalEnter.setEnabled(true);
                 }
                 else if(numberS.equals("")  || numberS.equals(null) || numberLength<10)
                 {
                     Toast.makeText(getApplicationContext(),"Enter a Valid Phone Number",Toast.LENGTH_LONG).show();
+                    finalEnter.setEnabled(true);
                 }
                 else
                 {
 
-                    final parse obj = new parse();
+                    finalEnter.setEnabled(false);
 
-                    final ProgressDialog progress = new ProgressDialog(this);
+                    VersionNumber = getString(R.string.VersionNumber);
+                    progress = new ProgressDialog(this);
                     progress.setTitle("Activating Free Trial");
                     progress.setMessage("Wait while contacting server...");
                     progress.setCancelable(false);
                     progress.show();
+                    finalEnter.setEnabled(true);
 
                     final boolean[] bool = {true};
                     final Handler handler = new Handler();
                     final Thread thread = new Thread() {
                         @Override
-
                         public void run() {
                             try {
-                                VersionNumber = getString(R.string.VersionNumber);
-                                while(bool[0]) {
-                                    int returnCode = obj.queryParseIMEI(IMEI,VersionNumber);
+                                while (bool[0]) {
+                                    checkandSave(nameS,numberS);
                                     Looper.prepare();
                                     handler.post(this);
                                     bool[0] = false;
-                                    if(returnCode == -404)
-                                    {
-                                        progress.dismiss();
-                                        Log.d("scores", "No Internet -404");
-                                        runOnUiThread(new Runnable() {
-                                            public void run() {
-                                                Toast.makeText(getApplicationContext(), "No Internet Connection", Toast.LENGTH_LONG).show();
-                                            }
-                                        });
-                                    }
-                                    else if(returnCode == -101)
-                                    {
-                                        Log.d("scores", "Return No Entry -101");
-                                        //Here no entry, Hence make a new entry with or without location
-
-                                        /*locationManager = (LocationManager) getApplicationContext().getSystemService(Context.LOCATION_SERVICE);
-                                        network_enabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
-                                        if(network_enabled)
-                                        {
-                                            Log.d("scores", "Location Enabled");
-                                            locationListener = new LocationListener() {
-                                                public void onLocationChanged(Location location) {
-                                                    locationString = location.toString();
-                                                    SharedPreferences appdata = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-                                                    String key = appdata.getString("keyUsed", "Trial Till 15-Dec-2015");
-
-                                                    //PARSE SAVE CODE
-                                                    try {
-                                                        Log.d("scores", "Trying to Save with Location");
-                                                        obj.savetoParse(nameS,numberS,key,IMEI,locationString,simID,operatorName,VersionNumber);
-                                                    } catch (ParseException e) {
-                                                        e.printStackTrace();
-                                                    }
-                                                    locationManager.removeUpdates(locationListener);
-                                                }
-
-                                                public void onStatusChanged(String provider, int status, Bundle extras) {
-                                                }
-
-                                                public void onProviderEnabled(String provider) {
-                                                }
-
-                                                public void onProviderDisabled(String provider) {
-                                                }
-                                            };
-                                            // Register the listener with the Location Manager to receive location updates
-                                            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListener);
-                                        }*/
-                                        //else
-
-                                            SharedPreferences appdata = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-                                            String key = appdata.getString("keyUsed", "Trial Parse 20Dec");
-                                            obj.savetoParse(nameS,numberS,key,IMEI,"Location Disabled",simID,operatorName,VersionNumber);
-
-
-                                        //Calling to check saved entry and get days left
-                                        //if(result == 1){
-                                                int returnCodeAfterSave = obj.queryParseIMEI(IMEI,VersionNumber);
-
-                                                if(returnCodeAfterSave == -404)
-                                                {
-                                                    progress.dismiss();
-                                                    runOnUiThread(new Runnable() {
-                                                        public void run() {
-                                                            Toast.makeText(getApplicationContext(), "No Internet Connection", Toast.LENGTH_LONG).show();
-                                                        }
-                                                    });
-                                                }
-                                                else if(returnCodeAfterSave == -101)
-                                                {
-                                                    Log.d("scores", "Return No Entry -101");
-
-                                                    progress.dismiss();
-                                                    runOnUiThread(new Runnable() {
-                                                        public void run() {
-                                                            Toast.makeText(getApplicationContext(), "Error at server. Try again later.", Toast.LENGTH_LONG).show();
-                                                        }
-                                                    });
-                                                }
-                                                else
-                                                {
-                                                    daysLeft = returnCodeAfterSave;
-                                                    SharedPreferences.Editor editor = appdata.edit();
-                                                    editor.putInt("daysLeft", daysLeft);
-                                                    editor.putBoolean("parseEntryDone", true);
-                                                    editor.putInt("userRegistered", 0);
-                                                    editor.commit();
-                                                    progress.dismiss();
-
-
-                                                    Intent myIntent = new Intent(authentication.this, MainActivity.class);
-                                                    startActivity(myIntent);
-                                                    finish();
-                                                }
-                                       // }
-                                    }
-                                    else
-                                    {
-                                        progress.dismiss();
-                                        daysLeft = returnCode;
-                                        SharedPreferences appdata = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-                                        SharedPreferences.Editor editor = appdata.edit();
-                                        editor.putInt("daysLeft", daysLeft);
-                                        editor.putBoolean("parseEntryDone", true);
-                                        editor.putInt("userRegistered", 0);
-                                        editor.commit();
-                                        Log.d("scores", String.valueOf(daysLeft));
-
-                                        Intent myIntent = new Intent(authentication.this, MainActivity.class);
-                                        startActivity(myIntent);
-                                        finish();
-                                    }
                                 }
-                            } catch (Exception e) {
+                            }catch (Exception e) {
                                 e.printStackTrace();
                             }
                         }
                     };
                     thread.start();
-
-                    SharedPreferences appdata = PreferenceManager.getDefaultSharedPreferences(this);
-                    SharedPreferences.Editor editor = appdata.edit();
-                    editor.putString("userName", nameS);
-                    editor.putString("phnNumber", numberS);
-                    editor.putBoolean("nameNumberEntered",true);
-                    editor.commit();
                 }
+                break;
+        }
+    }
+
+    private void checkIMEI() {
+        if (!AndyUtils.isNetworkAvailable(authentication.this)) {
+            AndyUtils.showToast(
+                    "Internet is not available!",
+                    authentication.this);
+            progress.dismiss();
+            return;
+        }
+
+        HashMap<String, String> map = new HashMap<String, String>();
+        map.put(AndyConstants.URL, AndyConstants.ServiceType.CHECKIMEI);
+
+        map.put(AndyConstants.Params.IMEI, IMEI);
+        new HttpRequester(authentication.this, map,
+                AndyConstants.ServiceCode.CHECKIMEI, this);
+    }
+
+    private void checkandSave(String name, String number) {
+        if (!AndyUtils.isNetworkAvailable(authentication.this)) {
+            AndyUtils.showToast(
+                    "Internet is not available!",
+                    authentication.this);
+            progress.dismiss();
+            return;
+        }else{
+            HashMap<String, String> map = new HashMap<String, String>();
+            map.put(AndyConstants.URL, AndyConstants.ServiceType.REGISTERATION);
+
+            map.put(AndyConstants.Params.IMEI, IMEI);
+            map.put(AndyConstants.Params.VERSION, VersionNumber);
+            map.put(AndyConstants.Params.DAYS_LEFT, String.valueOf(daysLeft));
+            map.put(AndyConstants.Params.NAME, name);
+            map.put(AndyConstants.Params.MOBILE, number);
+            map.put(AndyConstants.Params.CITY, "Location Disabled");
+            new HttpRequester(authentication.this, map,
+                    AndyConstants.ServiceCode.REGISTER, this);
+        }
+    }
+
+    @Override
+    public void onTaskCompleted(String response, int serviceCode) {
+        Log.d("responsejson", response.toString());
+        switch (serviceCode) {
+            case AndyConstants.ServiceCode.REGISTER:
+
+                if (parseContent.isSuccess(response)) {
+
+                    SharedPreferences appdata = PreferenceManager.getDefaultSharedPreferences(authentication.this);
+                    SharedPreferences.Editor editor = appdata.edit();
+
+                    alldetails = parseContent.getDetaillogin(response);
+                    editor.putInt("daysLeft", Integer.parseInt(alldetails.get(0).get(AndyConstants.Params.DAYS_LEFT)));
+                    editor.putString("userName", alldetails.get(0).get(AndyConstants.Params.NAME));
+                    editor.putString("phnNumber", alldetails.get(0).get(AndyConstants.Params.MOBILE));
+                    editor.putBoolean("nameNumberEntered", true);
+                    editor.putBoolean("parseEntryDone", true);
+                    editor.putInt("userRegistered", 0);
+                    editor.commit();
+
+                    progress.dismiss();
+
+                    Intent myIntent = new Intent(authentication.this, MainActivity.class);
+                    startActivity(myIntent);
+                    finish();
+
+                }else {
+                    String msg = parseContent.getErrorCode(response);
+                    AndyUtils.showToast(
+                            msg,
+                            authentication.this);
+                    Log.d("msg", msg);
+                }
+                break;
+
+            case AndyConstants.ServiceCode.CHECKIMEI:
+
+                if (parseContent.isSuccess(response)) {
+
+                    SharedPreferences appdata = PreferenceManager.getDefaultSharedPreferences(authentication.this);
+                    SharedPreferences.Editor editor = appdata.edit();
+
+                    alldetails = parseContent.getDetaillogin(response);
+                    editor.putInt("daysLeft", Integer.parseInt(alldetails.get(0).get(AndyConstants.Params.DAYS_LEFT)));
+                    editor.putString("userName", alldetails.get(0).get(AndyConstants.Params.NAME));
+                    editor.putString("phnNumber", alldetails.get(0).get(AndyConstants.Params.MOBILE));
+                    editor.putBoolean("nameNumberEntered", true);
+                    editor.putBoolean("parseEntryDone", true);
+                    editor.putInt("userRegistered", 0);
+                    editor.commit();
+
+                    progress.dismiss();
+
+                    Intent myIntent = new Intent(authentication.this, MainActivity.class);
+                    startActivity(myIntent);
+                    finish();
+                }
+                else
+                {
+                    progress.dismiss();
+                }
+                break;
+
+            default:
                 break;
         }
     }
