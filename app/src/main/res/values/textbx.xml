@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="textbx" parent="@android:style/TextAppearance">
+        <item name="android:textSize">20sp</item>
+        <item name="android:layout_width">90sp</item>
+        <item name="android:layout_height">40sp</item>
+
+        <item name="android:layout_weight">0.3</item>
+        <item name="android:width">12sp</item>
+    </style>
+
+
+
+
+</resources>

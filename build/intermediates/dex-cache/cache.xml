@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="C:\Users\Vivek\.gradle\caches\modules-2\files-2.1\com.parse\parse-android\1.11.0\6592129dec2caa8791d322c7e4b6b7a30e8eadae\parse-android-1.11.0.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="6592129dec2caa8791d322c7e4b6b7a30e8eadae">
+        <dex dex="C:\Users\Vivek\AndroidStudioProjects\New folder\CottonCalculatorPK\app\build\intermediates\pre-dexed\debug\parse-android-1.11.0_2ccc1bdf573777561b7285239f68f2419251b62c.jar" />
+    </item>
+    <item
+        jar="C:\Users\Vivek\AndroidStudioProjects\CottonCalculatorPK\app\src\main\java\okhttp-2.4.0.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="40340c0748190fe897baf7bffbc1b282734294e5">
+        <dex dex="C:\Users\Vivek\AndroidStudioProjects\CottonCalculatorPK\app\build\intermediates\pre-dexed\debug\okhttp-2.4.0-851f1ab6dda3e1e6c97902d6b2c4f4af1cbc0a78.jar" />
+    </item>
+    <item
+        jar="C:\Users\Vivek\AndroidStudioProjects\New folder\CottonCalculatorPK\app\build\intermediates\exploded-aar\com.android.support\support-v4\22.2.0\jars\libs\internal_impl-22.2.0.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="57f2ab85c164ff1676ec64dee787981c046fab79">
+        <dex dex="C:\Users\Vivek\AndroidStudioProjects\New folder\CottonCalculatorPK\app\build\intermediates\pre-dexed\debug\internal_impl-22.2.0_6f0eaecaeb4e606835c1655e2f6c957c51226255.jar" />
+    </item>
+    <item
+        jar="C:\Users\Vivek\.gradle\caches\modules-2\files-2.1\com.parse.bolts\bolts-tasks\1.3.0\8a62fd16fcc1c06f284fc98e6cbded2a5af1dd4c\bolts-tasks-1.3.0.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="8a62fd16fcc1c06f284fc98e6cbded2a5af1dd4c">
+        <dex dex="C:\Users\Vivek\AndroidStudioProjects\New folder\CottonCalculatorPK\app\build\intermediates\pre-dexed\debug\bolts-tasks-1.3.0_04316fa90f947459450ea1f694a2d559dee7114b.jar" />
+    </item>
+    <item
+        jar="C:\Users\Vivek\AndroidStudioProjects\New folder\CottonCalculatorPK\app\src\libs\okhttp-2.4.0.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="40340c0748190fe897baf7bffbc1b282734294e5">
+        <dex dex="C:\Users\Vivek\AndroidStudioProjects\New folder\CottonCalculatorPK\app\build\intermediates\pre-dexed\debug\okhttp-2.4.0_0d5b0221a2a11c75be6f32b38679d8fa4866153b.jar" />
+    </item>
+    <item
+        jar="C:\Users\Vivek\AndroidStudioProjects\New folder\CottonCalculatorPK\app\src\libs\okio-1.4.0.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="5b72bf48563ea8410e650de14aa33ff69a3e8c35">
+        <dex dex="C:\Users\Vivek\AndroidStudioProjects\New folder\CottonCalculatorPK\app\build\intermediates\pre-dexed\debug\okio-1.4.0_524d91607285826906279e8d405acdf21da340ae.jar" />
+    </item>
+    <item
+        jar="C:\Users\Vivek\AndroidStudioProjects\New folder\CottonCalculatorPK\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\22.2.0\jars\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="73753982da6bde518f3a4c6b372749981d14d1a0">
+        <dex dex="C:\Users\Vivek\AndroidStudioProjects\New folder\CottonCalculatorPK\app\build\intermediates\pre-dexed\debug\com.android.support-appcompat-v7-22.2.0_428fa0b304172c5749652640e2853a042ff8694f.jar" />
+    </item>
+    <item
+        jar="C:\Users\Vivek\AndroidStudioProjects\New folder\CottonCalculatorPK\app\build\intermediates\exploded-aar\com.android.support\support-v4\22.2.0\jars\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="1ee588ff2c4daf7b97c1cbf922a6c7f027285c2f">
+        <dex dex="C:\Users\Vivek\AndroidStudioProjects\New folder\CottonCalculatorPK\app\build\intermediates\pre-dexed\debug\com.android.support-support-v4-22.2.0_efed6269163b1b8ce0321fa4b5b1a328c70a7666.jar" />
+    </item>
+    <item
+        jar="C:\Users\Vivek\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\22.2.0\support-annotations-22.2.0.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="66b42a1f3eb7676070b7ef7f14b603483aecbee1">
+        <dex dex="C:\Users\Vivek\AndroidStudioProjects\New folder\CottonCalculatorPK\app\build\intermediates\pre-dexed\debug\support-annotations-22.2.0_3d36b1114faed10a4a42e3c509202390aa0cd48f.jar" />
+    </item>
+    <item
+        jar="C:\Users\Vivek\AndroidStudioProjects\CottonCalculatorPK\app\src\main\java\okio-1.4.0.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="5b72bf48563ea8410e650de14aa33ff69a3e8c35">
+        <dex dex="C:\Users\Vivek\AndroidStudioProjects\CottonCalculatorPK\app\build\intermediates\pre-dexed\debug\okio-1.4.0-061602261732873f92c57892bd83150e7387a3b5.jar" />
+    </item>
+
+</items>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="VersionNumber">1.1</string>
+    <string name="app_name">Cotton Calculator PK</string>
+    <string name="title_section1">Ginning Calculation</string>
+    <string name="title_section2">Cotton Import</string>
+    <string name="title_section3">Banola Oil Mill</string>
+    <string name="forward">Forward</string>
+    <string name="reverse">Reverse</string>
+    <string name="rsUnit">Rs./20 Kgs.</string>
+    <string name="rsQtl">Rs./Quintal</string>
+    <string name="rsCandy">Rs./Candy</string>
+    <string name="rs40kg">Rs./40 Kgs.</string>
+    <string name="rs20kg">Rs./20 Kgs.</string>
+    <string name="rs10kg">Rs./10 Kgs.</string>
+    <string name="rsMaund">Rs./Maund</string>
+    <string name="rs">Rs</string>
+    <string name="kg">Kgs</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="action_example">About Us</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_about_us">About Us</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="selectOilMill">Select Unit</string>
+    <string name="profit">Profit</string>
+    <string name="loss">Loss</string>
+    <string-array name="navItems">
+        <item>Ginning Calculation</item>
+        <item>Cotton Import</item>
+        <item>Banola Oil Mill</item>
+    </string-array>
+
+    <string-array name="oilMillValues">
+        <item>37.324 Kgs</item>
+        <item>40 Kgs</item>
+    </string-array>
+
+    <string name="parse_app_id">LXCXl9gr46QGaQSgBRv6P21WUqjyObR8linHgbgn</string>
+    <string name="parse_client_key">uvzQ0hMzN5mTx8lCPHUGpLpLuXtrc5zNMhk5UK0s</string>
+
+</resources>

@@ -1,0 +1,14 @@
+[
+    {
+        "merged": "/Users/vivek.vikani/CottonCalculatorPK/app/build/intermediates/res/merged/debug/menu/global.xml",
+        "source": "/Users/vivek.vikani/CottonCalculatorPK/app/src/main/res/menu/global.xml"
+    },
+    {
+        "merged": "/Users/vivek.vikani/CottonCalculatorPK/app/build/intermediates/res/merged/debug/menu/menu_about_us.xml",
+        "source": "/Users/vivek.vikani/CottonCalculatorPK/app/src/main/res/menu/menu_about_us.xml"
+    },
+    {
+        "merged": "/Users/vivek.vikani/CottonCalculatorPK/app/build/intermediates/res/merged/debug/menu/main.xml",
+        "source": "/Users/vivek.vikani/CottonCalculatorPK/app/src/main/res/menu/main.xml"
+    }
+]

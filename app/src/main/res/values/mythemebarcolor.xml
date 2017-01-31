@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="FindMyTrain" parent="@style/Theme.AppCompat.Light">
+        <item name="android:actionBarTabStyle">@style/Tab</item>
+        <item name="actionBarTabStyle">@style/Tab</item>
+        <item name="android:actionBarTabTextStyle">@style/TabTextStyle</item>
+        <item name="actionBarTabTextStyle">@style/TabTextStyle</item>
+    </style>
+
+    <style name="Tab" parent="@style/Widget.AppCompat.ActionBar">
+        <item name="android:background">@drawable/tab_bar_background</item>
+
+    </style>
+
+    <style name="TabTextStyle"
+        parent="@style/Widget.AppCompat.ActionBar.TabText">
+        <item name="android:paddingLeft">3dp</item>
+        <item name="android:paddingRight">3dp</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:textColor">@color/selector_tab_text</item>
+        <item name="android:textAlignment">center</item>
+    </style>
+</resources>

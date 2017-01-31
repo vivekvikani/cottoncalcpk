@@ -1,0 +1,567 @@
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:padding="1dp"
+    android:background="#fffbfbfb"
+    android:fillViewport="false"
+    android:id="@+id/scrollView">
+
+    <TableLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/tableLayout1"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:stretchColumns="0"
+        android:background="#fffbfbfb">
+
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="3"
+            android:layout_marginTop="10dp"
+            android:id="@+id/TableRow">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Cotton Rate"
+                android:id="@+id/costTxt"
+                android:layout_weight="1"
+                android:layout_column="0"
+                android:textSize="18sp"
+                android:layout_marginLeft="18dp"
+                android:width="60dp"
+                android:textColor="#212121" />
+
+            <EditText
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:inputType="number|numberDecimal"
+                android:id="@+id/costEditTxt"
+                android:visibility="visible"
+                android:background="@drawable/rounded_corner_edittext"
+                android:maxLength="8"
+                android:theme="@android:style/Theme.Light"
+                android:textColor="#ff000000"
+                android:textColorHint="#ffffffff"
+                android:layout_column="1"
+                android:width="100dp"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="@string/rsMaund"
+                android:id="@+id/costUnit"
+                android:layout_weight="1"
+                android:layout_column="2"
+                android:textSize="14sp"
+                android:layout_marginLeft="10dp"
+                android:width="90dp"
+                android:textColor="#b9000000" />
+        </TableRow>
+
+        <!--<TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="3"
+            android:layout_marginTop="10dp" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Freight"
+                android:id="@+id/freightTxt"
+                android:layout_weight="1"
+                android:layout_column="0"
+                android:textSize="18sp"
+                android:layout_marginLeft="18dp"
+                android:width="60dp"
+                android:textColor="#212121" />
+
+            <EditText
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:inputType="number|numberDecimal"
+                android:id="@+id/freightEditTxt"
+                android:visibility="visible"
+                android:background="@drawable/rounded_corner_edittext"
+                android:maxLength="6"
+                android:theme="@android:style/Theme.Light"
+                android:autoText="false"
+                android:textColor="#ff000000"
+                android:textColorHint="#ffffffff"
+                android:layout_column="1"
+                android:width="100dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="@string/rs40kg"
+                android:id="@+id/freightUnit"
+                android:layout_weight="1"
+                android:layout_column="2"
+                android:textSize="14sp"
+                android:layout_marginLeft="10dp"
+                android:width="90dp"
+                android:textColor="#b9000000" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="3"
+            android:layout_marginTop="10dp" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Commission"
+                android:id="@+id/commissionTxt"
+                android:layout_weight="1"
+                android:layout_column="0"
+                android:textSize="18sp"
+                android:layout_marginLeft="18dp"
+                android:width="60dp"
+                android:textColor="#212121" />
+
+            <EditText
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:inputType="number|numberDecimal"
+                android:id="@+id/commissionEditTxt"
+                android:visibility="visible"
+                android:background="@drawable/rounded_corner_edittext"
+                android:maxLength="7"
+                android:theme="@android:style/Theme.Light"
+                android:autoText="false"
+                android:textColor="#ff000000"
+                android:textColorHint="#ffffffff"
+                android:layout_column="1"
+                android:width="100dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="@string/rs40kg"
+                android:id="@+id/commissionUnit"
+                android:layout_weight="1"
+                android:layout_column="2"
+                android:textSize="14sp"
+                android:layout_marginLeft="10dp"
+                android:width="90dp"
+                android:textColor="#b9000000" />
+        </TableRow>-->
+
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="3"
+            android:layout_marginTop="10dp"
+            android:id="@+id/TableRow1">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Expenses"
+                android:id="@+id/expensesTxt"
+                android:layout_weight="1"
+                android:layout_column="0"
+                android:textSize="18sp"
+                android:layout_marginLeft="18dp"
+                android:width="60dp"
+                android:textColor="#212121" />
+
+            <EditText
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:id="@+id/expensesEditTxt"
+                android:inputType="number|numberDecimal"
+                android:visibility="visible"
+                android:background="@drawable/rounded_corner_edittext"
+                android:maxLength="7"
+                android:theme="@android:style/Theme.Light"
+                android:textColor="#ff000000"
+                android:textColorHint="#ffffffff"
+                android:layout_column="1"
+                android:width="100dp"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:id="@+id/expensesUnit"
+                android:layout_weight="1"
+                android:layout_column="2"
+                android:textSize="14sp"
+                android:layout_marginLeft="10dp"
+                android:width="90dp"
+                android:textColor="#b9000000"
+                android:text="@string/rs40kg" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="3"
+            android:layout_marginTop="10dp" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Banola Rate"
+                android:id="@+id/banolaTxt"
+                android:layout_weight="1"
+                android:layout_column="0"
+                android:textSize="18sp"
+                android:layout_marginLeft="18dp"
+                android:width="60dp"
+                android:textColor="#212121" />
+
+            <EditText
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:inputType="number|numberDecimal"
+                android:id="@+id/banolaEditTxt"
+                android:visibility="visible"
+                android:background="@drawable/rounded_corner_edittext"
+                android:maxLength="7"
+                android:theme="@android:style/Theme.Light"
+                android:autoText="false"
+                android:textColor="#ff000000"
+                android:textColorHint="#ffffffff"
+                android:layout_column="1"
+                android:width="100dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="@string/rsMaund"
+                android:id="@+id/banolaUnit"
+                android:layout_weight="1"
+                android:layout_column="2"
+                android:textSize="14sp"
+                android:layout_marginLeft="10dp"
+                android:width="90dp"
+                android:textColor="#b9000000" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="3"
+            android:layout_marginTop="10dp" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Cotton Outturn"
+                android:id="@+id/outturnTxt"
+                android:layout_weight="1"
+                android:layout_column="0"
+                android:textSize="18sp"
+                android:layout_marginLeft="18dp"
+                android:width="60dp"
+                android:textColor="#212121" />
+
+            <EditText
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:inputType="number|numberDecimal"
+                android:id="@+id/outturnEditTxt"
+                android:visibility="visible"
+                android:background="@drawable/rounded_corner_edittext"
+                android:maxLength="5"
+                android:theme="@android:style/Theme.Light"
+                android:autoText="false"
+                android:textColor="#ff000000"
+                android:textColorHint="#ffffffff"
+                android:layout_column="1"
+                android:width="100dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="@string/kg"
+                android:id="@+id/outturnUnit"
+                android:layout_weight="1"
+                android:layout_column="2"
+                android:textSize="14sp"
+                android:layout_marginLeft="10dp"
+                android:width="90dp"
+                android:textColor="#b9000000" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="3"
+            android:layout_marginTop="10dp" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Banola Outturn"
+                android:id="@+id/banola_outturnTxt"
+                android:layout_weight="1"
+                android:layout_column="0"
+                android:textSize="18sp"
+                android:layout_marginLeft="18dp"
+                android:width="60dp"
+                android:textColor="#212121" />
+
+            <EditText
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:inputType="number|numberDecimal"
+                android:id="@+id/banola_outturnEditTxt"
+                android:visibility="visible"
+                android:background="@drawable/rounded_corner_edittext"
+                android:maxLength="5"
+                android:theme="@android:style/Theme.Light"
+                android:autoText="false"
+                android:textColor="#ff000000"
+                android:textColorHint="#ffffffff"
+                android:layout_column="1"
+                android:width="100dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="@string/kg"
+                android:id="@+id/banola_outturnUnit"
+                android:layout_weight="1"
+                android:layout_column="2"
+                android:textSize="14sp"
+                android:layout_marginLeft="10dp"
+                android:width="90dp"
+                android:textColor="#b9000000" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="3"
+            android:layout_marginTop="10dp" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Shortage"
+                android:id="@+id/shortageTxt"
+                android:layout_weight="1"
+                android:layout_column="0"
+                android:textSize="18sp"
+                android:layout_marginLeft="18dp"
+                android:width="60dp"
+                android:textColor="#212121" />
+
+            <EditText
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:inputType="number|numberDecimal"
+                android:id="@+id/shortageEditTxt"
+                android:visibility="visible"
+                android:background="@drawable/ans_rounded_corner_edittext"
+                android:maxLength="9"
+                android:theme="@android:style/Theme.Light"
+                android:autoText="false"
+                android:textColor="#ff000000"
+                android:textColorHint="#ffffffff"
+                android:layout_column="1"
+                android:width="100dp"
+                android:textStyle="bold" android:editable="false"
+                android:focusableInTouchMode="false"
+                android:textIsSelectable="false"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="@string/kg"
+                android:id="@+id/shortageUnit"
+                android:layout_weight="1"
+                android:layout_column="2"
+                android:textSize="14sp"
+                android:layout_marginLeft="10dp"
+                android:width="90dp"
+                android:textColor="#b9000000"
+                />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="3"
+            android:layout_marginTop="15dp"
+            android:id="@+id/ReverseAnsRow">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Phutti"
+                android:id="@+id/phuttiTxt"
+                android:layout_weight="1"
+                android:layout_column="0"
+                android:textSize="18sp"
+                android:layout_marginLeft="18dp"
+                android:width="60dp"
+                android:textColor="#212121" />
+
+            <EditText
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:inputType="number|numberDecimal"
+                android:id="@+id/phuttiEditTxt"
+                android:visibility="visible"
+                android:background="@drawable/ans_rounded_corner_edittext"
+                android:maxLength="9"
+                android:theme="@android:style/Theme.Light"
+                android:autoText="false"
+                android:textColor="#ff000000"
+                android:textColorHint="#ffffffff"
+                android:layout_column="1"
+                android:width="100dp"
+                android:textStyle="bold" android:editable="false"
+                android:focusableInTouchMode="false"
+                android:textIsSelectable="false"
+                 />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="@string/rs40kg"
+                android:id="@+id/phuttiUnit"
+                android:layout_weight="1"
+                android:layout_column="2"
+                android:textSize="14sp"
+                android:layout_marginLeft="10dp"
+                android:width="90dp"
+                android:textColor="#b9000000" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="3"
+            android:layout_marginTop="10dp"
+            android:id="@+id/ReverseBtnRow" >
+
+            <Button
+                style="@style/Button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Reset"
+                android:id="@+id/reverseRstBtn"
+                android:layout_span="2"
+                android:layout_marginLeft="17dp"
+                android:layout_marginRight="10dp"
+                android:textStyle="bold"
+                android:textAllCaps="false"
+                android:nestedScrollingEnabled="false"
+                android:layout_column="0"
+                android:layout_gravity="bottom"
+                android:textColor="#FFFFFF"
+                android:elevation="5dp"
+                android:background="@drawable/primary_round" />
+
+            <Button
+                style="?android:attr/buttonStyleSmall"
+                android:id="@+id/reverseShrBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Share"
+                android:drawableRight="@drawable/sharebtnselector"
+                android:background="#007eff91"
+                android:textColor="#ff008174"
+                android:textAllCaps="false"
+                android:layout_column="2"
+                android:layout_marginTop="10dp"
+                android:layout_weight="1"
+                android:width="5dp"
+                android:letterSpacing="0"
+                android:layout_marginRight="12dp" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:weightSum="3"
+            android:nestedScrollingEnabled="false"
+            android:layout_marginTop="10dp"
+            android:id="@+id/ReverseTrialExpire1" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Phutti"
+                android:id="@+id/textView9"
+                android:layout_weight="1"
+                android:layout_column="0"
+                android:textSize="18sp"
+                android:layout_marginLeft="18dp"
+                android:width="60dp"
+                android:textColor="#212121" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Trial Period Expired!!"
+                android:id="@+id/textView10"
+                android:layout_weight="1"
+                android:layout_column="1"
+                android:textSize="18sp"
+                android:width="60dp"
+                android:textColor="#ffc00200"
+                android:layout_span="2" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="3"
+            android:layout_marginTop="10dp"
+            android:visibility="visible"
+            android:id="@+id/ReverseTrialExpire2" >
+
+            <Button
+                style="@style/Button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Click here for Full Version"
+                android:id="@+id/gotoFullVersionR"
+                android:layout_span="3"
+                android:layout_marginLeft="17dp"
+                android:layout_marginRight="10dp"
+                android:textStyle="bold"
+                android:textAllCaps="true"
+                android:nestedScrollingEnabled="false"
+                android:layout_column="0"
+                android:layout_gravity="bottom"
+                android:textColor="#ffffff"
+                android:elevation="5dp"
+                android:background="@drawable/primary_round"
+                android:visibility="visible" />
+        </TableRow>
+    </TableLayout>
+</ScrollView>
