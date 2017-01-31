@@ -26,6 +26,11 @@ import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 
+import com.cottoncalc.vivek.cottoncalculatorpk.htmlparse.AsyncTaskCompleteListener;
+import com.cottoncalc.vivek.cottoncalculatorpk.htmlparse.HttpRequester;
+import com.cottoncalc.vivek.cottoncalculatorpk.htmlparse.ParseContent;
+import com.cottoncalc.vivek.cottoncalculatorpk.utils.AndyConstants;
+import com.cottoncalc.vivek.cottoncalculatorpk.utils.AndyUtils;
 import com.squareup.okhttp.MediaType;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
@@ -36,9 +41,15 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Field;
 import java.net.URLEncoder;
+import java.text.DateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.HashMap;
 
 public class MainActivity extends ActionBarActivity
-        implements NavigationDrawerFragment.NavigationDrawerCallbacks {
+        implements NavigationDrawerFragment.NavigationDrawerCallbacks, AsyncTaskCompleteListener {
 
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
@@ -77,15 +88,10 @@ public class MainActivity extends ActionBarActivity
     private LocationListener locationListener;
     boolean network_enabled = false;
     boolean isExpired = false;
-    parse obj = new parse();
 
+    private ParseContent parseContent;
+    private ArrayList<HashMap<String,String>> alldetails;
 
-    /*NavigationDrawerFragment navigationDrawerFragment = new NavigationDrawerFragment();
-    @Override
-    protected void onPostCreate(@Nullable Bundle savedInstanceState) {
-        super.onPostCreate(savedInstanceState);
-        navigationDrawerFragment.mDrawerToggle.syncState();
-    }*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -122,23 +128,12 @@ public class MainActivity extends ActionBarActivity
             finish();
         }
 
+        parseContent = new ParseContent(this);
         TelephonyManager telephonyManager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
         operatorName = telephonyManager.getNetworkOperatorName();
         IMEI = telephonyManager.getDeviceId();
         simID = telephonyManager.getSimSerialNumber();
 
-       /* long installtime = getInstallTime();
-        Date date = new Date();
-        long current = date.getTime();
-       *//* if (current - installtime >= 1296000000)
-        {
-            Toast.makeText(this, "Trial Expired", Toast.LENGTH_LONG).show();
-            isExpired = true;
-        }*//*
-        GregorianCalendar expDate = new GregorianCalendar( 2015, 11, 15 ); // midnight  MONTH IS ZERO START yyyy/mm/dd
-        GregorianCalendar now = new GregorianCalendar();
-*/
-         //isExpired = now.after( expDate );
 
         daysLeft = appdata.getInt("daysLeft", 0);
         if(daysLeft == 0)
@@ -157,7 +152,11 @@ public class MainActivity extends ActionBarActivity
             editor.putBoolean("trialExpired", false);
             editor.commit();
         }
+
+        decreaseDaysLeftinSP();
         VersionNumber = getString(R.string.VersionNumber);
+
+
         final boolean[] bool = {true};
         final Thread thread = new Thread() {
             @Override
@@ -165,15 +164,89 @@ public class MainActivity extends ActionBarActivity
                 try {
                     while (bool[0]) {
                         bool[0] = false;
-                        obj.queryParseIMEIinBG(MainActivity.this,IMEI,VersionNumber);
-
+                        checkDaysLeftonServer();
                     }
                 }catch (Exception e)
                 {
                     e.printStackTrace();
                 }
             }
-         }; thread.start();
+        }; thread.start();
+    }
+
+    private void decreaseDaysLeftinSP()
+    {
+        System.out.println("DECREASE DAYS");
+        SharedPreferences appdata = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
+        SharedPreferences.Editor editor = appdata.edit();
+        Calendar calendar = new GregorianCalendar();
+        int todayDayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
+        int lastAccessDayOfMonth = appdata.getInt("lastAccessDayofMonth", 0);
+        System.out.println("Last Access Day: "  +lastAccessDayOfMonth);
+        if(todayDayOfMonth != lastAccessDayOfMonth && lastAccessDayOfMonth != 0)
+        {
+            daysLeft = appdata.getInt("daysLeft", 0);
+            System.out.println("DAYS LEFT :" +daysLeft);
+            if(daysLeft>0){
+                daysLeft = daysLeft - 1;
+            }
+            editor.putInt("daysLeft", daysLeft);
+            System.out.println("DAYS PUT: " +daysLeft);
+        }
+        lastAccessDayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
+        editor.putInt("lastAccessDayofMonth", lastAccessDayOfMonth);
+        editor.commit();
+    }
+
+    private void checkDaysLeftonServer() {
+        String currentDateTimeString = DateFormat.getDateTimeInstance().format(new Date());
+
+        if (!AndyUtils.isNetworkAvailable(MainActivity.this)) {
+            AndyUtils.showToast(
+                    "Internet is not available!",
+                    MainActivity.this);
+            return;
+        }
+        SharedPreferences appdata = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
+        HashMap<String, String> map = new HashMap<String, String>();
+        map.put(AndyConstants.URL, AndyConstants.ServiceType.LOGIN);
+
+        map.put(AndyConstants.Params.IMEI, IMEI);
+        map.put(AndyConstants.Params.VERSION, VersionNumber);
+        map.put(AndyConstants.Params.DAYS_LEFT, String.valueOf(daysLeft));
+        map.put(AndyConstants.Params.LAST_ACCESS, currentDateTimeString);
+        map.put(AndyConstants.Params.NOTIFICATION_TOKEN, appdata.getString("firebase_token", null));
+
+        new HttpRequester(MainActivity.this, map,
+                AndyConstants.ServiceCode.LOGIN, this);
+    }
+
+    @Override
+    public void onTaskCompleted(String response, int serviceCode) {
+        Log.d("responsejson", response.toString());
+        switch (serviceCode) {
+            case AndyConstants.ServiceCode.LOGIN:
+
+                if (parseContent.isSuccess(response)) {
+
+                    SharedPreferences appdata = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
+                    SharedPreferences.Editor editor = appdata.edit();
+
+                    alldetails = parseContent.getDetaillogin(response);
+                    System.out.println("DAYS LEFT HTTP SERVER: " + alldetails.get(0).get(AndyConstants.Params.DAYS_LEFT));
+                    editor.putInt("daysLeft", Integer.parseInt(alldetails.get(0).get(AndyConstants.Params.DAYS_LEFT)));
+                    editor.commit();
+                }else {
+                    String msg = parseContent.getErrorCode(response);
+                    AndyUtils.showToast(
+                            msg,
+                            MainActivity.this);
+                    Log.d("msg", msg);
+                }
+                break;
+            default:
+                break;
+        }
     }
 
     @Override
@@ -195,7 +268,7 @@ public class MainActivity extends ActionBarActivity
                         SharedPreferences appdata = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
                         String name = appdata.getString("userName", "");
                         String number = appdata.getString("phnNumber", "");
-                        String key = appdata.getString("keyUsed", "Trial with Parse Auto-Decrease 6Jan");
+                        String key = appdata.getString("keyUsed", "Web Service 1 (Jan 31,2017)");
 
                         PostDataTask postDataTask = new PostDataTask();
                         postDataTask.execute(URL, name, number, key, locationString, IMEI, simID, operatorName, VersionNumber);
@@ -219,7 +292,7 @@ public class MainActivity extends ActionBarActivity
             {
                 String name = appdata.getString("userName", "");
                 String number = appdata.getString("phnNumber", "");
-                String key = appdata.getString("keyUsed", "Trial with Parse Auto-Decrease 6Jan");
+                String key = appdata.getString("keyUsed", "Web Service 1 (Jan 31,2017)");
 
                 PostDataTask postDataTask = new PostDataTask();
                 postDataTask.execute(URL, name, number, key, "Location Disabled", IMEI, simID, operatorName, VersionNumber);
@@ -280,7 +353,6 @@ public class MainActivity extends ActionBarActivity
             }
 
             try {
-                Log.d("loc", "TRY BLOCK2");
                 //Create OkHttpClient for sending request
                 OkHttpClient client = new OkHttpClient();
                 //Create the request body with the help of Media Type
