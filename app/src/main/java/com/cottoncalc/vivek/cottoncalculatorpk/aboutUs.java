@@ -63,7 +63,7 @@ public class aboutUs extends ActionBarActivity implements View.OnClickListener, 
         SharedPreferences appdata = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         SharedPreferences.Editor editor = appdata.edit();
 
-        int daysLeft = appdata.getInt("daysLeft", 0);
+        daysLeft = appdata.getInt("daysLeft", 0);
         if(daysLeft==0)
         {
             editor.putBoolean("FullVersionActive", false);
@@ -144,6 +144,7 @@ public class aboutUs extends ActionBarActivity implements View.OnClickListener, 
 
     private void checkDaysLeftonServer() {
         String currentDateTimeString = DateFormat.getDateTimeInstance().format(new Date());
+        appdata = PreferenceManager.getDefaultSharedPreferences(this);
 
         if (!AndyUtils.isNetworkAvailable(aboutUs.this)) {
             AndyUtils.showToast(

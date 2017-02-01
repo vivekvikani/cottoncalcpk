@@ -57,34 +57,20 @@ public class AndyConstants {
         public static final int LOGIN = 2;
         public static final int CHECKVERSION = 3;
         public static final int CHECKIMEI = 4;
-        public static final int REGISTERTOKEN = 5;
-
     }
 
     // web service url constants
     public class ServiceType {
-
-        public static final String BASE_URL = "http://madeovercode.com/oilmill/service/";
+        public static final String BASE_URL = "http://madeovercode.com/pkcottoncalc/service/";
         public static final String LOGIN = BASE_URL + "login.php";
         public static final String REGISTERATION = BASE_URL + "register.php";
         public static final String CHECKVERSION = BASE_URL + "checkversion.php";
         public static final String CHECKIMEI = BASE_URL + "checkIMEI.php";
-        public static final String REGISTERTOKEN = BASE_URL + "registertoken.php";
 
     }
     // webservice key constants
     public class Params {
-
-        public static final String USERID = "user_id";
-
-        public static final String FIRSTNAME = "first_name";
-        public static final String FNAME = "fname";
-        public static final String LASTNAME = "last_name";
-        public static final String LNAME = "lname";
-
-
         public static final String EMAIL = "email";
-        public static final String CDATE = "c_date";
         public static final String IMEI = "imei";
         public static final String NAME = "name";
         public static final String MOBILE = "mobile";
@@ -93,14 +79,11 @@ public class AndyConstants {
         public static final String LAST_ACCESS = "last_access";
         public static final String INSTALL_DATE = "install_date";
         public static final String CITY = "city";
-        public static final String TOKEN = "token";
         public static final String ID = "id";
         public static final String VERSION = "version";
         public static final String VERSIONDB = "versionDB";
         public static final String ISCOMPLUSORY = "isCompulsory";
         public static final String ISACTIVE = "isActive";
-        public static final String USERNAME = "username";
-        public static final String PASSWORD = "password";
         }
 }
 
